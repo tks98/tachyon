@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.png" alt="Tachyon Logo" width="200"/>
+  <img src="assets/logo.jpeg" alt="Tachyon Logo" width="200"/>
 </div>
 
 Tachyon is a user-friendly Terminal User Interface application that offers detailed insights into containers running on your system.
