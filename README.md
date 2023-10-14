@@ -4,7 +4,7 @@
 
 Tachyon is a user-friendly Terminal User Interface application that offers detailed insights into containers running on your system.
 
-![Tachyon Screenshot](assets/tui.png)
+![Tachyon Screenshot](assets/tachyon-tui.png)
 
 
 Tachyon is designed to function with the [containerd](https://containerd.io/) runtime. Support for other runtimes may come later.
@@ -17,7 +17,7 @@ Tachyon is designed to function with the [containerd](https://containerd.io/) ru
   - `Right Arrow`: Navigate to the container details view.
   - `Left Arrow`: Return to the containers table view.
   - `Up/Down Arrows`: Scroll through the list or navigate container details.
-  - `r`: Refresh the table to fetch updated container data.
+  - `r`: Force refresh to get updated container data.
   - `q`: Quit the application.
 - **Efficient Cache System**: Tachyon caches container information for faster access and minimizes redundant fetch operations.
 - **Automatic Data Refresh**: Ensures your data stays up-to-date by periodically refreshing container information.
