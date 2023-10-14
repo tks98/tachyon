@@ -23,12 +23,23 @@ jobs:
         run: echo "RELEASE_VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
       - name: Build for Linux AMD64
-        run: GOOS=linux GOARCH=amd64 go build -o tachyon_amd64
+        run: GOOS=linux GOARCH=amd64 go build -o tachyon
+
+      - name: Package and Hash (AMD64)
+        run: |
+          tar -czvf "tachyon_${{ env.RELEASE_VERSION }}_amd64.tar.gz" tachyon
+          sha256sum "tachyon_${{ env.RELEASE_VERSION }}_amd64.tar.gz" > "tachyon_${{ env.RELEASE_VERSION }}_amd64.tar.gz.sha256"
 
       - name: Build for Linux ARM64
-        run: GOOS=linux GOARCH=arm64 go build -o tachyon_arm64
+        run: GOOS=linux GOARCH=arm64 go build -o tachyon
+
+      - name: Package and Hash (ARM64)
+        run: |
+          tar -czvf "tachyon_${{ env.RELEASE_VERSION }}_arm64.tar.gz" tachyon
+          sha256sum "tachyon_${{ env.RELEASE_VERSION }}_arm64.tar.gz" > "tachyon_${{ env.RELEASE_VERSION }}_arm64.tar.gz.sha256"
 
       - name: Create Release
+        id: create_release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/create-release@v1
         with:
@@ -39,3 +50,26 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Assets (AMD64)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./tachyon_${{ env.RELEASE_VERSION }}_amd64.tar.gz
+          asset_name: tachyon_${{ env.RELEASE_VERSION }}_amd64.tar.gz
+          asset_content_type: application/gzip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release SHA (AMD64)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./tachyon_${{ env.RELEASE_VERSION }}_amd64.tar.gz.sha256
+          asset_name: tachyon_${{ env.RELEASE_VERSION }}_amd64.tar.gz.sha256
+          asset_content_type: text/plain
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
