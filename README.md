@@ -4,7 +4,7 @@
 
 Tachyon is a user-friendly Terminal User Interface application that offers detailed insights into containers running on your system.
 
-![Tachyon Screenshot](assets/tachyon.png)
+![Tachyon Screenshot](assets/tui.png)
 
 
 Tachyon is designed to function with the [containerd](https://containerd.io/) runtime. Support for other runtimes may come later.
